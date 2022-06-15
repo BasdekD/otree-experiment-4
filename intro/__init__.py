@@ -332,7 +332,7 @@ class ApUsageExample(Page):
         return helpers.dropout_handler_app_after_this_page(player, upcoming_apps)
 
 
-class TenIndependentRounds(Page):
+class TwelveIndependentRounds(Page):
     timeout_seconds = 180
 
     @staticmethod
@@ -515,7 +515,5 @@ class QuestionMovingRoundResult(Page):
 
 page_sequence = [Introduction, Introduction2, InformedConsent, IncomeProductionPhase, PracticeRoundIntro, PracticeRound,
                  PracticeRoundResults, RealTaskIntro, RealTask, TaskResults, TwoGroups, GroupingResults, ActionPoints,
-                 ApUsageExample, TenIndependentRounds, RedistributingIncomeFirst, MovingGroupSecond, MovingGroupFirst,
-                 RedistributingIncomeSecond, ExchangeApForMoney, QuestionFinalIncome, QuestionFinalIncomeResult,
-                 QuestionMovingRound, QuestionMovingRoundResult]
+                 ApUsageExample, TwelveIndependentRounds, RedistributingIncomeFirst, MovingGroupSecond, MovingGroupFirst, RedistributingIncomeSecond, ExchangeApForMoney, QuestionFinalIncome, QuestionFinalIncomeResult, QuestionMovingRound, QuestionMovingRoundResult]
 

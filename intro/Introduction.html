@@ -1,24 +1,25 @@
 {{ block title }}
-    Introduction
+Introduction
 {{ endblock }}
 
 {{ block content }}
 
 <div style="text-align: justify">
-    <p> Welcome to this study which will last approximately <b>25 minutes.</b><br/>
-    This study has two phases: (1) an <b>income production phase</b> and (2) a <b>decision phase.</b></p>
+    <p> Welcome to this study which will last approximately <b>25 minutes.</b><br />
+        This study has two phases: (1) an <b>income production phase</b> and (2) a <b>decision phase.</b></p>
 
     <p>With your participation in this study, you can earn money, which will be paid out in three parts:</p>
     <ol>
-        <li><b>Participation Fee: </b>You will receive a <b>fixed participation fee of {{ session.config.participation_fee }}</b></li>
-        <li><b>Comprehension Bonus: </b> You will be asked to read carefully the instructions. It is very important that
-            you understand well the procedure and the rules. Before the main part of the study, you will answer some
-            comprehension questions. For <b>each comprehension question</b> you answer correctly <b>on your first attempt,</b>
+        <li><b>Participation Fee: </b>You will receive a <b>fixed participation fee of {{
+                session.config.participation_fee }}</b></li>
+        <li><b>Comprehension Bonus: </b> It is very important that you understand well the instructions. Before the main
+            part of the study,
+            you will answer some comprehension questions. For <b>each comprehension question</b> you answer correctly
+            <b>on your first attempt,</b>
             you will earn <b>{{ compr_bonus }}</b>.
-</li>
-        <li><b>Income: </b>During the production phase, you can produce an income that depends on your task
-            performance. During the decision phase, the size of the income can change based on your decisions and the
-            decisions of other participants. The final income can range from <b>1£ to 5£.</b></li>
+        </li>
+        <li><b>Income: </b>During the decision phase, the size of the income you have produced can change based on your
+            decisions and the decisions of other participants. The final income can range from <b>1£ to 5£.</b></li>
     </ol>
 </div>
 

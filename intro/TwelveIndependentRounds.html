@@ -1,0 +1,34 @@
+{{ block title }}
+Twelve Independent Rounds
+{{ endblock }}
+
+{{ block content }}
+
+{{extends "_static/global/timer_display_setup.html"}}
+
+<div style="text-align: justify">
+    <p>
+        Low-income members are given <b>twelve independent chances (twelve rounds)</b> to increase their income.
+    </p>
+    <p>
+        <u>Each of the twelve rounds is <b>independent from other rounds</b> or in other words <b>what happens in one
+                round does not affect the next round:</b></u>
+    <ol>
+        <li>If a low-income member <b>moves to the high-income group</b> in a certain round, in the next round he/she
+            will again <b>start as a low-income member.</b>
+        </li>
+        <li>Even when there is <b>income redistribution</b> in one round, in the next round the <b>initial income</b> of the low-income group is <b>£{{ session.config.low_income }}</b> and the initial income of the high-income group is <b>£{{ session.config.high_income }}.</b>
+        </li>
+    </ol>
+        At the end of each round, low-income members will <b>receive feedback about income redistribution</b> in this
+        round and <b> who moved to the high-income group in this round.</b>
+    </p>
+    <p>
+        <b>Each participant will receive as bonus payment the final income of his group in one randomly selected round
+            plus the money he/she received from exchanging his/her Action Points in the selected round.</b>
+    </p>
+</div>
+
+{{ next_button }}
+
+{{ endblock }}

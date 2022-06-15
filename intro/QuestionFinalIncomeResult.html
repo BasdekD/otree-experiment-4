@@ -5,19 +5,18 @@
 {{ if result == "correct" }}
   <div style="text-align: justify">
     <p>
-      <b>Your answer is correct!</b> You earned a bonus of <b>&pound;{{ session.config.compr_ques_bonus }}</b>
+      <b>Your answer is correct!</b> You earned a bonus of <b>&pound;{{ session.config.compr_ques_bonus }}.</b>
     </p>
   </div>
 {{ else }}
   <p style="margin-bottom: 40px;"><b>Your answer is wrong.</b><br/>
-      As you can see below, the correct answer is that the final income of the low-income group is {{ correct_answer }}£
-      because the total contributions to the public pool are
+      As you can see below, the correct answer is that the final income of the low-income group is <b>{{ correct_answer }}£ because the total contributions to the public pool are
       {{ if session.config.efficacy == 'high' }}
         more than 12 and less than 23
       {{ else }}
         less than 28
       {{ endif }}
-        Action Points.
+        Action Points.</b>
   </p>
 
     <div style="text-align: center; margin-bottom: 20px;">
