@@ -8,25 +8,24 @@
 
 <div style="text-align: justify;">
     <p>You allocated <b>{{player.personal_account_ap}} Action Points</b> to your personal account.</p>
-    <p><b>In this round, you {{ if not player.has_switched }}do not{{ endif }} move to the high-income group.</b></p>
-
-    {{ if not player.has_switched }}
-        <p>There are two possible reasons for this:</p>
-        <ol>
-            <li>
-                Either because <b> this round is not a moving round.<br/>
-                Remember that according to low-income members of previous sessions, the probability that a randomly
-                selected round is a moving round is
-                <span class="mobility">{{ if session.config.mobility == 'low' }}10%{{ else }} 50%{{ endif }}</span>.</b>
-            </li>
-            <li>
-                Or this is a moving round but <b>two other low-income members allocated more Action Points than you</b>
-                to their personal account.
-            </li>
-        </ol>
+    <p>
+    {{ if not is_current_round_switching }}
+        This round is <b>not a moving round.</b></br>
+        <b>No low-income member</b> moves to the high-income group.     
+    {{ else }}
+        This round is a moving round.</br> 
+        {{ if player.has_switched }}
+            You and another low-income member move to the high-income group because the two of you allocated the most points to your personal accounts. 
+        {{ else }}
+            Two other low-income members move to the high-income group because the two of them allocated the most points to their personal accounts.
+        {{ endif }}
     {{ endif }}
+    </p>
+    <p>
+        <b>According to low-income members of previous sessions, the probability that a randomly selected round is a moving round is <span class="mobility">{{ if session.config.mobility == 'low' }}10%{{ else }} 50%{{ endif }}</span>.</b>
+    </p>
 </div>
-    {{ next_button }}
+{{ next_button }}
 {{ endblock }}
 
 

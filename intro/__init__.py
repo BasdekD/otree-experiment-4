@@ -16,9 +16,9 @@ class C(BaseConstants):
     NUM_ROUNDS = 1
     NUM_OF_TABLES = 50
     # Dev threshold
-    # TASK_THRESHOLD = 0
+    TASK_THRESHOLD = 0
     # Real threshold
-    TASK_THRESHOLD = 5
+    # TASK_THRESHOLD = 5
     COMPREHENSION_QUESTION_BONUS = 0.10
 
     with open('tables.csv', encoding='utf-8-sig') as table_file:
@@ -200,7 +200,7 @@ class PracticeRoundIntro(Page):
 
 
 class PracticeRound(Page):
-    timeout_seconds = 30
+    timeout_seconds = 10
 
     @staticmethod
     def before_next_page(player: Player, timeout_happened):
@@ -251,7 +251,7 @@ class RealTaskIntro(Page):
 
 
 class RealTask(Page):
-    timeout_seconds = 120
+    timeout_seconds = 10
 
     @staticmethod
     def before_next_page(player: Player, timeout_happened):
@@ -490,7 +490,6 @@ class QuestionIncomeAfterSwitching(Page):
     form_model = 'player'
     form_fields = ['question_income_after_switching']
 
-
 class QuestionIncomeAfterSwitchingResult(Page):
     timeout_seconds = 60
 
@@ -530,7 +529,6 @@ class QuestionFinalIncome(Page):
     form_model = 'player'
     form_fields = ['question_final_income']
 
-
 class QuestionFinalIncomeResult(Page):
     timeout_seconds = 120
 
@@ -557,7 +555,6 @@ class QuestionFinalIncomeResult(Page):
                 correct_answer=correct_answer
             )
 
-
 class QuestionMovingRound(Page):
     timeout_seconds = 120
 
@@ -573,7 +570,6 @@ class QuestionMovingRound(Page):
 
     form_model = 'player'
     form_fields = ['question_moving_round']
-
 
 class QuestionMovingRoundResult(Page):
     timeout_seconds = 60

@@ -193,6 +193,13 @@ class FeedbackSwitching(Page):
     def before_next_page(player: Player, timeout_happened):
         helpers.dropout_handler_before_next_page(player, timeout_happened)
 
+    @staticmethod
+    def vars_for_template(player):
+        print(player.round_number in player.session.vars['switching_rounds'])
+        return dict(
+            is_current_round_switching = player.round_number in player.session.vars['switching_rounds']
+        )
+
 
 class FeedbackExchange(Page):
     @staticmethod

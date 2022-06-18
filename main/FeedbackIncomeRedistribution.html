@@ -8,9 +8,27 @@
 <div style="text-align: justify;">
     <p>You contributed <b>{{player.public_pool_ap}} Action Points</b> to the <b>public pool.</b></p>
   <p>
-      Based on the <b>total contributions of the four low-income members</b> to the public pool,
-      the final income of the two groups are:
+      The <b>four low-income members (including you)</b> contributed to the public pool in total
+      {{ if session.config.efficacy == 'high' }}
+          {{ if subsession.final_low_income == 1 }}
+            less than 12 
+          {{ elif subsession.final_low_income == 2 }}
+            between 12 and 23 
+          {{ elif subsession.final_low_income == 3 }}
+            more than 23
+          {{ endif }}
+      {{ else }}
+          {{ if subsession.final_low_income == 1 }}
+            less than 28 
+          {{ elif subsession.final_low_income == 2 }}
+            between 28 and 39 
+          {{ elif subsession.final_low_income == 3 }}
+            more than 40
+          {{ endif }}
+      {{ endif }}
+      Action Points.
   </p>
+  <p>Therefore, the final income of the two groups are:</p>
   <ul>
     <li><b>Low-income group: {{ subsession.final_low_income }}</b></li>
     <li><b>High-income group: {{ subsession.final_high_income }}</b></li>
