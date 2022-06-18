@@ -1,0 +1,37 @@
+{{ block title }}
+    Comprehension Question 1
+{{ endblock }}
+
+{{ block content }}
+
+{{ formfield_errors 'question_mobility_across_rounds' }}
+{{extends "_static/global/timer_display_setup.html"}}
+{{extends "_static/global/error_message.html"}}
+
+<div style="text-align: justify">
+  <p>
+    You have one attempt to answer the following question correctly and earn a <b>bonus of £{{ session.config.compr_ques_bonus }}.</b><br/>
+  If your answer is <b>wrong,</b> you will <b>receive feedback</b> about the correct answer.
+  </p>
+  <p><b>Question:</b> A low-income member moves to the high-income group in the <b>fourth round.</b> 
+    In which income group will he/she be a member of <b>at the start of the fifth round?</b>   
+ </p>
+
+  <div style="margin-bottom: 20px">
+    <div class="form-check">
+      <input class="form-check-input" type="radio" id="1_1" name="question_mobility_across_rounds" value="1">
+      <label for="1_1"><b>High-income group</b></label>
+    </div>
+    <div class="form-check">
+      <input class="form-check-input" type="radio" id="1_2" name="question_mobility_across_rounds" value="2">
+      <label for="1_2"><b>Low-income group</b></label>
+    </div>
+    <div class="form-check">
+      <input class="form-check-input" type="radio" id="1_3" name="question_mobility_across_rounds" value="3">
+      <label for="1_3"><b>None of the above</b></label>
+    </div>
+  </div>
+</div>
+{{ next_button }}
+
+{{ endblock }}

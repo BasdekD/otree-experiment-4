@@ -43,7 +43,7 @@ def dropout_handler_app_after_this_page(player, upcoming_apps):
 
 # Comprehension Question Handling
 def question_final_income_get_answer_index(player):
-    return [2] if player.session.config['efficacy'] == 'high' else [4]
+    return 2 if player.session.config['efficacy'] == 'high' else 4
 
 
 def question_final_income_get_answer(player):

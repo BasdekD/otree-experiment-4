@@ -107,6 +107,11 @@ class Player(BasePlayer):
     incorrect_counter = models.IntegerField()
     number_of_consecutive_timeout_pages = models.IntegerField(initial=0)
 
+    question_mobility_across_rounds = models.IntegerField(
+        choices=[1, 2, 3],
+        widget=widgets.RadioSelect
+    )
+
     question_final_income = models.IntegerField(
         choices=[1, 2, 3, 4],
         widget=widgets.RadioSelect
@@ -135,10 +140,9 @@ class Player(BasePlayer):
             else:
                 self.incorrect_counter += 1
 
-    def check_comprehension_questions(self, questions, answers):
-        for i in range(len(questions)):
-            if questions[i] == answers[i]:
-                self.payoff += cu(C.COMPREHENSION_QUESTION_BONUS)
+    def check_comprehension_questions(self, given_answer, correct_answer):
+        if given_answer == correct_answer:
+            self.payoff += cu(C.COMPREHENSION_QUESTION_BONUS)
 
 
 # PAGES
@@ -426,14 +430,53 @@ class ExchangeApForMoney(Page):
             example_2_cu=player.session.config['ap_to_money_cu'] * player.session.config['initial_action_points']
         )
 
+class QuestionMobilityAcrossRounds(Page):
+    timeout_seconds = 120
+
+    @staticmethod
+    def before_next_page(player: Player, timeout_happened):
+        correct_answer = 2
+        player.check_comprehension_questions(player.question_mobility_across_rounds, correct_answer)
+        helpers.dropout_handler_before_next_page(player, timeout_happened)
+
+    @staticmethod
+    def app_after_this_page(player: Player, upcoming_apps):
+        return helpers.dropout_handler_app_after_this_page(player, upcoming_apps)
+
+    form_model = 'player'
+    form_fields = ['question_mobility_across_rounds']
+
+
+class QuestionMobilityAcrossRoundsResult(Page):
+    timeout_seconds = 60
+
+    @staticmethod
+    def before_next_page(player: Player, timeout_happened):
+        helpers.dropout_handler_before_next_page(player, timeout_happened)
+
+    @staticmethod
+    def app_after_this_page(player: Player, upcoming_apps):
+        return helpers.dropout_handler_app_after_this_page(player, upcoming_apps)
+
+    @staticmethod
+    def vars_for_template(player):
+        correct_answer = 2
+        if player.question_mobility_across_rounds == correct_answer:
+            return dict(
+                result="correct",
+            )
+        else:
+            return dict(
+                result="incorrect",
+            )
 
 class QuestionFinalIncome(Page):
     timeout_seconds = 120
 
     @staticmethod
     def before_next_page(player: Player, timeout_happened):
-        correct_answer = helpers.question_final_income_get_answer_index(player)
-        player.check_comprehension_questions([player.question_final_income], correct_answer)
+        correct_answer_index = helpers.question_final_income_get_answer_index(player)
+        player.check_comprehension_questions(player.question_final_income, correct_answer_index)
         helpers.dropout_handler_before_next_page(player, timeout_happened)
 
     @staticmethod
@@ -459,7 +502,7 @@ class QuestionFinalIncomeResult(Page):
     def vars_for_template(player):
         correct_answer_index = helpers.question_final_income_get_answer_index(player)
         correct_answer = helpers.question_final_income_get_answer(player)
-        if player.question_final_income == correct_answer_index[0]:
+        if player.question_final_income == correct_answer_index:
             return dict(
                 result="correct",
                 correct_answer=correct_answer
@@ -476,8 +519,8 @@ class QuestionMovingRound(Page):
 
     @staticmethod
     def before_next_page(player: Player, timeout_happened):
-        correct_answer = [3]
-        player.check_comprehension_questions([player.question_moving_round], correct_answer)
+        correct_answer = 3
+        player.check_comprehension_questions(player.question_moving_round, correct_answer)
         helpers.dropout_handler_before_next_page(player, timeout_happened)
 
     @staticmethod
@@ -515,5 +558,5 @@ class QuestionMovingRoundResult(Page):
 
 page_sequence = [Introduction, Introduction2, InformedConsent, IncomeProductionPhase, PracticeRoundIntro, PracticeRound,
                  PracticeRoundResults, RealTaskIntro, RealTask, TaskResults, TwoGroups, GroupingResults, ActionPoints,
-                 ApUsageExample, TwelveIndependentRounds, RedistributingIncomeFirst, MovingGroupSecond, MovingGroupFirst, RedistributingIncomeSecond, ExchangeApForMoney, QuestionFinalIncome, QuestionFinalIncomeResult, QuestionMovingRound, QuestionMovingRoundResult]
+                 ApUsageExample, TwelveIndependentRounds, RedistributingIncomeFirst, MovingGroupSecond, MovingGroupFirst, RedistributingIncomeSecond, ExchangeApForMoney, QuestionMobilityAcrossRounds, QuestionMobilityAcrossRoundsResult, QuestionFinalIncome, QuestionFinalIncomeResult, QuestionMovingRound, QuestionMovingRoundResult]
 
