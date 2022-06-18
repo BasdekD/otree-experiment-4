@@ -112,6 +112,11 @@ class Player(BasePlayer):
         widget=widgets.RadioSelect
     )
 
+    question_income_after_switching = models.IntegerField(
+        choices=[1, 2, 3],
+        widget=widgets.RadioSelect
+    )
+
     question_final_income = models.IntegerField(
         choices=[1, 2, 3, 4],
         widget=widgets.RadioSelect
@@ -446,7 +451,6 @@ class QuestionMobilityAcrossRounds(Page):
     form_model = 'player'
     form_fields = ['question_mobility_across_rounds']
 
-
 class QuestionMobilityAcrossRoundsResult(Page):
     timeout_seconds = 60
 
@@ -462,6 +466,46 @@ class QuestionMobilityAcrossRoundsResult(Page):
     def vars_for_template(player):
         correct_answer = 2
         if player.question_mobility_across_rounds == correct_answer:
+            return dict(
+                result="correct",
+            )
+        else:
+            return dict(
+                result="incorrect",
+            )
+
+class QuestionIncomeAfterSwitching(Page):
+    timeout_seconds = 120
+
+    @staticmethod
+    def before_next_page(player: Player, timeout_happened):
+        correct_answer = 1
+        player.check_comprehension_questions(player.question_income_after_switching, correct_answer)
+        helpers.dropout_handler_before_next_page(player, timeout_happened)
+
+    @staticmethod
+    def app_after_this_page(player: Player, upcoming_apps):
+        return helpers.dropout_handler_app_after_this_page(player, upcoming_apps)
+
+    form_model = 'player'
+    form_fields = ['question_income_after_switching']
+
+
+class QuestionIncomeAfterSwitchingResult(Page):
+    timeout_seconds = 60
+
+    @staticmethod
+    def before_next_page(player: Player, timeout_happened):
+        helpers.dropout_handler_before_next_page(player, timeout_happened)
+
+    @staticmethod
+    def app_after_this_page(player: Player, upcoming_apps):
+        return helpers.dropout_handler_app_after_this_page(player, upcoming_apps)
+
+    @staticmethod
+    def vars_for_template(player):
+        correct_answer = 1
+        if player.question_income_after_switching == correct_answer:
             return dict(
                 result="correct",
             )
@@ -558,5 +602,5 @@ class QuestionMovingRoundResult(Page):
 
 page_sequence = [Introduction, Introduction2, InformedConsent, IncomeProductionPhase, PracticeRoundIntro, PracticeRound,
                  PracticeRoundResults, RealTaskIntro, RealTask, TaskResults, TwoGroups, GroupingResults, ActionPoints,
-                 ApUsageExample, TwelveIndependentRounds, RedistributingIncomeFirst, MovingGroupSecond, MovingGroupFirst, RedistributingIncomeSecond, ExchangeApForMoney, QuestionMobilityAcrossRounds, QuestionMobilityAcrossRoundsResult, QuestionFinalIncome, QuestionFinalIncomeResult, QuestionMovingRound, QuestionMovingRoundResult]
+                 ApUsageExample, TwelveIndependentRounds, RedistributingIncomeFirst, MovingGroupSecond, MovingGroupFirst, RedistributingIncomeSecond, ExchangeApForMoney, QuestionMobilityAcrossRounds, QuestionMobilityAcrossRoundsResult, QuestionIncomeAfterSwitching, QuestionIncomeAfterSwitchingResult, QuestionFinalIncome, QuestionFinalIncomeResult, QuestionMovingRound, QuestionMovingRoundResult]
 

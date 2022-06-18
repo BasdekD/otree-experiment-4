@@ -1,0 +1,20 @@
+{{ block content }}
+
+{{extends "_static/global/timer_display_setup.html"}}
+
+{{ if result == "correct" }}
+<div style="text-align: justify">
+  <p>
+    <b>Your answer is correct!</b> You earned a bonus of <b>&pound;{{ session.config.compr_ques_bonus }}</b>
+  </p>
+</div>
+{{ else }}
+<p style="margin-bottom: 40px;">
+  <b>Your answer is wrong.</b><br />
+  Since each round is independent, the income redistribution of one round will not affect the initial income of both
+  groups in the next round. In each round, the <b>initial income</b> of the low-income group is <b>£{{ session.config.low_income }}</b> and the initial income of the high-income group is <b>£{{ session.config.high_income }}</b>.
+</p>
+{{ endif }}
+{{ next_button }}
+
+{{ endblock }}
