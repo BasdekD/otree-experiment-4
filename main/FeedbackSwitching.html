@@ -15,14 +15,14 @@
     {{ else }}
         This round is a moving round.</br> 
         {{ if player.has_switched }}
-            You and another low-income member move to the high-income group because the two of you allocated the most points to your personal accounts. 
+            <b>You and another low-income member move to the high-income group because the two of you allocated the most points to your personal accounts.</b>
         {{ else }}
-            Two other low-income members move to the high-income group because the two of them allocated the most points to their personal accounts.
+            <b>Two other low-income members move to the high-income group because the two of them allocated the most points to their personal accounts.</b>
         {{ endif }}
     {{ endif }}
     </p>
     <p>
-        <b>According to low-income members of previous sessions, the probability that a randomly selected round is a moving round is <span class="mobility">{{ if session.config.mobility == 'low' }}10%{{ else }} 50%{{ endif }}</span>.</b>
+        <b>According to some low-income members of previous sessions, the probability that a randomly selected round is a moving round is <span class="mobility">{{ if session.config.mobility == 'low' }}10%{{ else }} 50%{{ endif }}</span>.</b>
     </p>
 </div>
 {{ next_button }}
