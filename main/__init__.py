@@ -54,7 +54,7 @@ class Player(BasePlayer):
     timeout_on_contribution = models.BooleanField(initial=False)
     has_switched = models.BooleanField(initial=False)
 
-    question_fair_unfair = models.IntegerField(
+    question_fair_unfair_inequality = models.IntegerField(
         choices=[1, 2, 3, 4, 5, 6, 7],
         widget=widgets.RadioSelectHorizontal
     )
@@ -66,6 +66,12 @@ class Player(BasePlayer):
 
     question_achieve_raise = models.IntegerField()
     question_action_points_estimation = models.IntegerField()
+
+    question_fair_unfair_conditions = models.IntegerField(
+        choices=[1, 2, 3, 4, 5, 6, 7],
+        widget=widgets.RadioSelectHorizontal
+    )
+
 
     question_identify_with_group = models.IntegerField(
         choices=[1, 2, 3, 4, 5, 6, 7],
@@ -217,7 +223,7 @@ class FeedbackExchange(Page):
         )
 
 
-class QuestionFairUnfair(Page):
+class QuestionFairUnfairInequality(Page):
     @staticmethod
     def get_timeout_seconds(player: Player):
         return helpers.get_dropout_timeout(player, 90)
@@ -230,7 +236,7 @@ class QuestionFairUnfair(Page):
     def is_displayed(player):
         return player.round_number == 1 or player.round_number == 10
     form_model = 'player'
-    form_fields = ['question_fair_unfair']
+    form_fields = ['question_fair_unfair_inequality']
 
 
 class QuestionSwitchingLikeliness(Page):
@@ -263,6 +269,23 @@ class QuestionAchieveRaise(Page):
         return player.round_number == 1 or player.round_number == 10
     form_model = 'player'
     form_fields = ['question_achieve_raise']
+
+
+class QuestionFairUnfairConditions(Page):
+    @staticmethod
+    def get_timeout_seconds(player: Player):
+        return helpers.get_dropout_timeout(player, 90)
+
+    @staticmethod
+    def before_next_page(player: Player, timeout_happened):
+        helpers.dropout_handler_before_next_page(player, timeout_happened)
+
+    @staticmethod
+    def is_displayed(player):
+        return player.round_number == 1 or player.round_number == 10
+    form_model = 'player'
+    form_fields = ['question_fair_unfair_conditions']
+
 
 
 class QuestionActionPointsEstimation(Page):
@@ -399,8 +422,6 @@ class InformedConsent(Page):
     form_fields = ['informed_consent']
 
 
-page_sequence = [InitialWaitPage, SetGroupWaitPage, IntroScreenRound, ContributionHandling, QuestionFairUnfair,
-                 QuestionSwitchingLikeliness, QuestionAchieveRaise, QuestionActionPointsEstimation,
-                 QuestionIdentifyWithGroup, QuestionCommonGoals, QuestionPolitics, QuestionMobilityProbability,
-                 FeedbackIncomeRedistribution, FeedbackSwitching, FeedbackExchange, QuestionGeneralComment, Debriefing,
-                 InformedConsent]
+page_sequence = [
+      InitialWaitPage, SetGroupWaitPage, IntroScreenRound, ContributionHandling, QuestionFairUnfairInequality, QuestionSwitchingLikeliness, QuestionAchieveRaise, QuestionFairUnfairConditions, QuestionActionPointsEstimation, QuestionIdentifyWithGroup, QuestionCommonGoals, QuestionPolitics, QuestionMobilityProbability, FeedbackIncomeRedistribution, FeedbackSwitching, FeedbackExchange, QuestionGeneralComment, Debriefing, InformedConsent
+    ]
