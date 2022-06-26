@@ -15,9 +15,9 @@
     {{ else }}
         This round is a moving round.</br> 
         {{ if player.has_switched }}
-            <b>You and another low-income member move to the high-income group because the two of you allocated the most points to your personal accounts.</b>
+            <b>You and another low-income member move to the high-income group</b> because the two of you <b>allocated more points than the other low-income members in your personal accounts.</b>
         {{ else }}
-            <b>Two other low-income members move to the high-income group because the two of them allocated the most points to their personal accounts.</b>
+            <b>You and another low-income member do not move to the high-income group</b> because the two other low-income members <b>allocated more points than you in their personal accounts. </b>
         {{ endif }}
     {{ endif }}
     </p>
