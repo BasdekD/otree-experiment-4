@@ -25,7 +25,7 @@ SESSION_CONFIGS = [
 
 SESSION_CONFIG_DEFAULTS = dict(
     real_world_currency_per_point=1.00,
-    participation_fee=2.15,
+    participation_fee=2.5,
     low_income=1,
     high_income=5,
     ap_to_money_cu=0.05,
